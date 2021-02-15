@@ -18,6 +18,8 @@ display_help() {
     echo "   -scrip_filename <netcdf_filename>  Sepcify the SCRIP filename (e.g. northamericax4v1pg2_scrip.nc)"
     echo "   -v, --verbose                      Set verbosity option true"
     echo
+    echo "Example: ./create_mapping_scripts.sh -hgrid_name northamericax4v1pg2  -scrip_filename northamericax4v1pg2_scrip.nc"
+    echo
     exit 1
 }
 
@@ -28,8 +30,8 @@ display_help() {
 while [ $# -gt 0 ]
 do
   case "$1" in
-    --hgrid_name )    hgrid_name="$2"; shift ;;
-    --scrip_filename) scrip_filename="$2"; shift ;;
+    -hgrid_name )    hgrid_name="$2"; shift ;;
+    -scrip_filename) scrip_filename="$2"; shift ;;
     -v | --verbose)   verbose=1;;
     -*)
       echo "Unknown option: $1"
@@ -63,6 +65,12 @@ then
   echo "scrip_filename is not specified"
   display_help
   exit 0
+else
+  if [ ! -f "/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/$scrip_filename" ]
+  then
+    echo "/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/$scrip_filename does not exist"
+    exit 0
+  fi
 fi
 
 rm -rf $hgrid_name
