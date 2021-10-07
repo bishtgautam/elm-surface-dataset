@@ -5,6 +5,7 @@ YYMMDD=`date +"%y%m%d"`
 #hgrid_name=northamericax4v1pg2
 
 scrip_filename=
+scrip_filepath=
 hgrid_name=
 verbose=0
 
@@ -14,11 +15,16 @@ verbose=0
 display_help() {
     echo "Usage: $0 " >&2
     echo
-    echo "   -hgrid_name  <netcdf_filename>     Specify the hgrid name (e.g. northamericax4v1pg2)"
-    echo "   -scrip_filename <netcdf_filename>  Sepcify the SCRIP filename (e.g. northamericax4v1pg2_scrip.nc)"
+    echo "   -hgrid_name     <name>             The hgrid name (e.g. northamericax4v1pg2)"
+    echo "   -scrip_filename <netcdf_filename>  The SCRIP filename (e.g. northamericax4v1pg2_scrip.nc)"
+    echo "   -scrip_filepath <path>             The path to SCRIP file (e.g. /global/cfs/cdirs/e3sm/inputdata on NERSC"
     echo "   -v, --verbose                      Set verbosity option true"
     echo
-    echo "Example: ./create_mapping_scripts.sh -hgrid_name northamericax4v1pg2  -scrip_filename northamericax4v1pg2_scrip.nc"
+    echo "Example: "
+    echo "   ./create_mapping_scripts.sh                  \\"
+    echo "   -hgrid_name northamericax4v1pg2              \\"
+    echo "   -scrip_filename northamericax4v1pg2_scrip.nc \\"
+    echo "   -scrip_filepath ~/data"
     echo
     exit 1
 }
@@ -32,7 +38,8 @@ do
   case "$1" in
     -hgrid_name )    hgrid_name="$2"; shift ;;
     -scrip_filename) scrip_filename="$2"; shift ;;
-    -v | --verbose)   verbose=1;;
+    -scrip_filepath)   scrip_filepath="$2"; shift ;;
+    -v | --verbose)  verbose=1;;
     -*)
       echo "Unknown option: $1"
       display_help
@@ -66,9 +73,9 @@ then
   display_help
   exit 0
 else
-  if [ ! -f "/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/$scrip_filename" ]
+  if [ ! -f "$scrip_filepath/$scrip_filename" ]
   then
-    echo "/global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/$scrip_filename does not exist"
+    echo "$scrip_filepath/$scrip_filename does not exist"
     exit 0
   fi
 fi
@@ -79,9 +86,10 @@ echo "Creating batch scripts:"
 for filename in map_*run; do
   echo "  $hgrid_name/$hgrid_name.$filename"
   cp $filename $hgrid_name/$hgrid_name.$filename
-  sed -i "s/YYMMDD/${YYMMDD}/g"                  $hgrid_name/$hgrid_name.$filename
-  sed -i "s/SCRIP_FILE_NAME/${scrip_filename}/g" $hgrid_name/$hgrid_name.$filename
-  sed -i "s/HGRID_NAME/${hgrid_name}/g"          $hgrid_name/$hgrid_name.$filename
+  sed -i "s/YYMMDD/${YYMMDD}/g"                  ${hgrid_name}/${hgrid_name}.$filename
+  sed -i "s/SCRIP_FILE_NAME/${scrip_filename}/g" ${hgrid_name}/${hgrid_name}.$filename
+  sed -i "s#SCRIP_FILE_PATH#${scrip_filepath}#g" ${hgrid_name}/${hgrid_name}.$filename
+  sed -i "s/HGRID_NAME/${hgrid_name}/g"          ${hgrid_name}/${hgrid_name}.$filename
 done
 
 

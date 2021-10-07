@@ -15,7 +15,7 @@ module load ncl
 
 CDATE=cYYMMDD
 
-srun -n 8 /project/projectdirs/ccsm1/esmf/cori/ESMF-7.1.0r-netcdf-hdf5parallel-intel18.0.1.163-mpi-O-cori-knl/bin/binO/Unicos.intel.64.mpi.default//ESMF_RegridWeightGen --ignore_unmapped -s /project/projectdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3x3_USGS_c120912.nc -d /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIP_FILE_NAME -m conserve -w map_3x3min_USGS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc --src_type SCRIP --dst_type SCRIP --64bit_offset
+srun -n 8 /project/projectdirs/ccsm1/esmf/cori/ESMF-7.1.0r-netcdf-hdf5parallel-intel18.0.1.163-mpi-O-cori-knl/bin/binO/Unicos.intel.64.mpi.default//ESMF_RegridWeightGen --ignore_unmapped -s /project/projectdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3x3_USGS_c120912.nc -d SCRIP_FILE_PATH/SCRIP_FILE_NAME -m conserve -w map_3x3min_USGS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc --src_type SCRIP --dst_type SCRIP --64bit_offset
 ncatted -a history,global,a,c,/project/projectdirs/ccsm1/esmf/cori/ESMF-7.1.0r-netcdf-hdf5parallel-intel18.0.1.163-mpi-O-cori-knl/bin/binO/Unicos.intel.64.mpi.default//ESMF_RegridWeightGen  map_3x3min_USGS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
 ncatted -a hostname,global,a,c,cori03   -h map_3x3min_USGS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
 ncatted -a logname,global,a,c,gbisht -h map_3x3min_USGS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
