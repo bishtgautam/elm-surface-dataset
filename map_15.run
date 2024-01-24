@@ -8,7 +8,9 @@
 #SBATCH --mail-type=all
 #SBATCH --mail-user=gautam.bisht@pnnl.gov
 
-source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.shCDATE=cYYMMDD
+source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
+CDATE=cYYMMDD
+
 
  srun -n 40 -S 1 \
  /global/common/software/e3sm/anaconda_envs/base/envs/e3sm_unified_1.9.2_login/bin/ESMF_RegridWeightGen \
