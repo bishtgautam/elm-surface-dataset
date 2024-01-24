@@ -1,12 +1,9 @@
 #!/bin/sh
-#SBATCH  --account=e3sm
-#SBATCH  --partition=debug
-#SBATCH  --nodes=2
-#SBATCH  --time=00:30:00
-#SBATCH  --job-name=JOB_NAME_04
-#SBATCH --constraint=knl
-#SBATCH --mail-type=all
-#SBATCH --mail-user=gautam.bisht@pnnl.gov
+#SBATCH -N 1
+#SBATCH -C cpu
+#SBATCH -q debug
+#SBATCH -t 00:30:00
+#SBATCH -A e3sm
 
 source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
 CDATE=cYYMMDD
@@ -15,7 +12,7 @@ CDATE=cYYMMDD
 srun -n 8 \
 /global/common/software/e3sm/anaconda_envs/base/envs/e3sm_unified_1.9.2_login/bin/ESMF_RegridWeightGen \
 --ignore_unmapped \
--s /project/projectdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3minx3min_MODIS_c110915.nc \
+-s /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3minx3min_MODIS_c110915.nc \
 -d SCRIP_FILE_PATH/SCRIP_FILE_NAME \
 -m conserve \
 -w map_3x3min_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc \
