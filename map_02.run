@@ -15,9 +15,11 @@ module load ncl
 
 CDATE=cYYMMDD
 
-srun -n 8 /project/projectdirs/ccsm1/esmf/cori/ESMF-7.1.0r-netcdf-hdf5parallel-intel18.0.1.163-mpi-O-cori-knl/bin/binO/Unicos.intel.64.mpi.default//ESMF_RegridWeightGen --ignore_unmapped -s /project/projectdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_0.5x0.5_MODIS_c110228.nc -d SCRIP_FILE_PATH/SCRIP_FILE_NAME -m conserve -w map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc --src_type SCRIP --dst_type SCRIP
-ncatted -a history,global,a,c,/project/projectdirs/ccsm1/esmf/cori/ESMF-7.1.0r-netcdf-hdf5parallel-intel18.0.1.163-mpi-O-cori-knl/bin/binO/Unicos.intel.64.mpi.default//ESMF_RegridWeightGen  map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
-ncatted -a hostname,global,a,c,cori03   -h map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
-ncatted -a logname,global,a,c,gbisht -h map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
-rm -f rmdups_map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc
-env MAPFILE=map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc NEWMAPFILE=rmdups_map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc ncl ./rmdups.ncl
+srun -n 8 \
+/global/common/software/e3sm/anaconda_envs/base/envs/e3sm_unified_1.9.2_login/bin/ESMF_RegridWeightGen \
+--ignore_unmapped \
+-s /project/projectdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_0.5x0.5_MODIS_c110228.nc \
+-d SCRIP_FILE_PATH/SCRIP_FILE_NAME -m conserve -w map_0.5x0.5_MODIS_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc \
+--src_type SCRIP \
+--dst_type SCRIP
+
