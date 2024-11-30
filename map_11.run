@@ -9,7 +9,7 @@ source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cp
 CDATE=cYYMMDD
 
 srun -n 8 \
-/global/common/software/e3sm/anaconda_envs/base/envs/e3sm_unified_1.9.2_login/bin/ESMF_RegridWeightGen \
+ESMF_RegridWeightGen \
 --ignore_unmapped \
 -s /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3minx3min_GLOBE-Gardner_c120922.nc
 -d SCRIP_FILE_PATH/SCRIP_FILE_NAME \
