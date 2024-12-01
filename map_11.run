@@ -11,7 +11,7 @@ CDATE=cYYMMDD
 srun -n 8 \
 ESMF_RegridWeightGen \
 --ignore_unmapped \
--s /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3minx3min_GLOBE-Gardner_c120922.nc
+-s /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/SCRIPgrid_3minx3min_GLOBE-Gardner_c120922.nc \
 -d SCRIP_FILE_PATH/SCRIP_FILE_NAME \
 -m conserve \
 -w map_3x3min_GLOBE-Gardner_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc \
