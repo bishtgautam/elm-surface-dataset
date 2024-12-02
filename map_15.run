@@ -1,14 +1,14 @@
 #!/bin/sh
 #SBATCH --nodes 40
 #SBATCH -C cpu
-#SBATCH -q debug
+#SBATCH -q regular
 #SBATCH -t 00:30:00
 #SBATCH -A e3sm
 
 source /global/common/software/e3sm/anaconda_envs/load_latest_e3sm_unified_pm-cpu.sh
 CDATE=cYYMMDD
 
- srun -n 40 -S 1 \
+srun -n 40 -c 256 \
  ESMF_RegridWeightGen \
  --ignore_unmapped \
  -s /global/cfs/cdirs/e3sm/inputdata/lnd/clm2/mappingdata/grids/UGRID_1km-merge-10min_HYDRO1K-merge-nomask_c130402.nc \
