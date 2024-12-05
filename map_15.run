@@ -20,3 +20,4 @@ srun -n 40 -c 256 \
  --dst_type SCRIP \
  --64bit_offset
 
+mv *15.run done/

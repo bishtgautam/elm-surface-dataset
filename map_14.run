@@ -17,3 +17,5 @@ ESMF_RegridWeightGen \
 -w map_360x720_cruncep_to_HGRID_NAME_nomask_aave_da_${CDATE}.nc \
 --src_type SCRIP \
 --dst_type SCRIP
+
+mv *14.run done/

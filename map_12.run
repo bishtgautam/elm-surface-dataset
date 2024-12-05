@@ -18,3 +18,5 @@ ESMF_RegridWeightGen \
 --src_type SCRIP \
 --dst_type SCRIP \
 --64bit_offset
+
+mv *12.run done/
